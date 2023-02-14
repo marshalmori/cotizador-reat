@@ -9,6 +9,8 @@ const CotizadorProvider = ({ children }) => {
     plan: "",
   });
 
+  const [error, setError] = useState("");
+
   const handleChangeDatos = (e) => {
     setDatos({
       ...datos,
@@ -21,6 +23,8 @@ const CotizadorProvider = ({ children }) => {
       value={{
         datos,
         handleChangeDatos,
+        error,
+        setError,
       }}
     >
       {children}
