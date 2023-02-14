@@ -1,5 +1,10 @@
 import { useState, createContext } from "react";
-import { obtenerDiferenciaYear } from "../helpers";
+import {
+  calcularMarca,
+  obtenerDiferenciaYear,
+  calcularPlan,
+  formatearDinero,
+} from "../helpers";
 
 const CotizadorContext = createContext();
 
@@ -11,6 +16,7 @@ const CotizadorProvider = ({ children }) => {
   });
 
   const [error, setError] = useState("");
+  const [resultado, setResultado] = useState(0);
 
   const handleChangeDatos = (e) => {
     setDatos({
@@ -25,6 +31,14 @@ const CotizadorProvider = ({ children }) => {
     const diferencia = obtenerDiferenciaYear(datos.year);
 
     resultado -= (diferencia * 3 * resultado) / 100;
+
+    resultado *= calcularMarca(datos.marca);
+
+    resultado *= calcularPlan(datos.plan);
+
+    resultado = resultado.toFixed(2);
+
+    setResultado(resultado);
   };
 
   return (
